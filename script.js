@@ -265,14 +265,14 @@ function renderizarRespostas(resultado) {
       </div>
     </div>
 
-    <!-- PAINEL DE GABARITO RÁPIDO PARA O PROFESSOR -->
+    <!-- PAINEL DE GABARITO RÁPIDO PARA CORREÇÃO -->
     <div class="quick-summary-card glass-panel">
       <div class="summary-header">
         <div class="summary-title">
           <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-          Resumo Rápido para Correção — Gabarito Aluno Nº ${aluno.nº}
+          Resumo Rápido para Correção — Gabarito Nº ${aluno.nº}
         </div>
-        <span class="summary-badge">Visão do Professor</span>
+        <span class="summary-badge">Gabarito Oficial</span>
       </div>
 
       <div class="summary-table-wrap">
