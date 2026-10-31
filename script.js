@@ -667,9 +667,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function exibirEstadoInicial() {
+    const container = document.getElementById('resultado-container');
+    if (!container) return;
+    container.innerHTML = `
+      <div class="not-found-state glass-panel">
+        <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" style="color: var(--primary-light); margin-bottom: 1rem;">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+          <path d="M11 8v6M8 11h6"></path>
+        </svg>
+        <h3 style="margin-top: 0.5rem; color: #fff; font-size: 1.35rem; font-weight: 700;">Nenhuma avaliação selecionada</h3>
+        <p style="margin-top: 0.5rem; color: var(--text-muted); max-width: 500px; margin-left: auto; margin-right: auto; font-size: 0.98rem;">
+          Digite o <strong>número da avaliação (1 a ${DADOS_ALUNOS.length})</strong> no campo acima ou escolha uma opção na lista suspensa para visualizar o gabarito detalhado.
+        </p>
+      </div>
+    `;
+  }
+
   function carregarAlunoPorNumero(num) {
     const numInt = parseInt(num, 10);
-    if (isNaN(numInt)) return;
+    if (isNaN(numInt)) {
+      exibirEstadoInicial();
+      return;
+    }
 
     const aluno = DADOS_ALUNOS.find(a => a.nº === numInt);
     if (aluno) {
@@ -705,19 +726,23 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnAnterior.addEventListener('click', () => {
-    let atual = parseInt(inputNumero.value, 10) || 1;
-    if (atual > 1) {
+    let atual = parseInt(inputNumero.value, 10);
+    if (!isNaN(atual) && atual > 1) {
       carregarAlunoPorNumero(atual - 1);
+    } else if (isNaN(atual)) {
+      carregarAlunoPorNumero(1);
     }
   });
 
   btnProximo.addEventListener('click', () => {
-    let atual = parseInt(inputNumero.value, 10) || 1;
-    if (atual < DADOS_ALUNOS.length) {
+    let atual = parseInt(inputNumero.value, 10);
+    if (!isNaN(atual) && atual < DADOS_ALUNOS.length) {
       carregarAlunoPorNumero(atual + 1);
+    } else if (isNaN(atual)) {
+      carregarAlunoPorNumero(1);
     }
   });
 
-  // Carrega por padrão o estudante Nº 15 (exemplo citado no arquivo docx)
-  carregarAlunoPorNumero(15);
+  // Inicia zerado, aguardando a seleção do usuário
+  exibirEstadoInicial();
 });
